@@ -277,7 +277,7 @@ sub generate_page_tree {
     }
 
     ## Sort them...
-    @pages = sort { $a->{order_id} <=> $b->{order_id} || $a->{title} cmp $b->{title} } @pages;
+    @pages = sort { $a->{order_id} <=> $b->{order_id} || title_compare($a->{title},$b->{title}) } @pages;
 
     ## Update and nest the tree's
     if (my $subtree = delete $trees{ $f->{uid} }) {
@@ -291,6 +291,29 @@ sub generate_page_tree {
   return $root;
 }
 
+
+#######################################
+### Numeric title sorting
+#
+# Sometimes the page header starts with a number and in those cases with the standard
+# cmp function we get 10 and then 1, 2, 3 and so on. So, this function will try to
+# detect if the title starts with a number and if so, use it as a comparing method
+#
+#
+
+sub title_compare {
+    my ($a, $b) = @_;
+
+    if ($a =~ m/^(\d+)/) {
+        my $first = $1;
+        if ($b =~ m/^(\d+)/) {
+            my $second = $1;
+            return($first <=> $second);
+        }
+    }
+    # default to the standard cmp
+    return($a cmp $b);
+}
 
 #######################################
 ### MkDocs support
