@@ -2,7 +2,7 @@ FROM alpine
 
 RUN apk add --no-cache               \
       curl wget make git             \
-      python py3-pip                 \
+      python python3 py3-pip         \
       nodejs yarn                    \
       nginx                          \
       perl perl-path-tiny perl-yaml-libyaml perl-getopt-long
