@@ -6,7 +6,7 @@ Allows us to use the mkdocs command on our projects to generate documentation.
 
 From the command line, you can obtain an explanation on how to use with:
 
-    docker run -i --rm melopt/mkdocs
+    docker run -i --rm nunofernandes/docker-mkdocs-alpine
 
 This will guide you on how to use this image effectively during your documentation writing process.
 
@@ -89,14 +89,14 @@ with your documentation.
 We use a multi-stage build for this. Use the following `Dockerfile` as starting point:
 
 ```
-FROM melopt/mkdocs AS builder
+FROM nunofernandes/docker-mkdocs-alpine AS builder
 
 COPY <your source files> /docs/
 
 RUN /usr/bin/generate_mkdocs_site
 
 
-FROM melopt/nginx-alt
+FROM nunofernandes/nginx-base
 
 COPY --from=builder /build /usr/share/nginx/docs/
 ```
