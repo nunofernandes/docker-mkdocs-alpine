@@ -1,11 +1,12 @@
 FROM alpine
-
+RUN apk --no-cache upgrade
 RUN apk add --no-cache               \
       curl wget make git             \
-      python python3 py3-pip         \
-      nodejs yarn                    \
-      nginx                          \
-      perl perl-path-tiny perl-yaml-libyaml perl-getopt-long
+      python py3-pip python3         \
+      nodejs yarn python3-dev        \
+      nginx gcc musl-dev             \
+      perl perl-path-tiny            \
+      perl-yaml-libyaml perl-getopt-long
 
 ## Add the MermaidJS utility
 RUN yarn add mermaid
@@ -20,6 +21,7 @@ RUN pip3 install mkdocs pygments                                                
     mkdocs-alabaster mkdocs-bootstrap mkdocs-cinder mkdocs-material mkdocs-nature \
     mkdocs-rtd-dropdown                                                           \
     mkdocs-safe-text-plugin                                                       \
+    mkdocs-exclude                                                                \
  && rm -rf "$HOME/.cache"
 
 ## Install template fixes
