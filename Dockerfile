@@ -1,7 +1,7 @@
 FROM alpine
 RUN apk --no-cache upgrade
 RUN apk add --no-cache               \
-      curl wget make git             \
+      curl wget make git jq rsync    \
       python py3-pip python3         \
       nodejs yarn python3-dev        \
       nginx gcc musl-dev             \
